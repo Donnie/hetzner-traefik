@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-config
+data:
+  ENV_TYPE: {{ .Values.config.envType | quote }}
+  index.html.template: |
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <title>Hello World</title>
+    </head>
+    <body>
+      <p>Hello World i am on ${ENV_TYPE}. and this is my ${SECRET_VALUE}.</p>
+    </body>
+    </html>
+  nginx.conf: |
+    server {
+      listen 80;
+      server_name localhost;
+      
+      location / {
+        root /usr/share/nginx/html;
+        index index.html;
+      }
+      
+      # Health check endpoint
+      location /health {
+        access_log off;
+        return 200 "healthy\n";
+        add_header Content-Type text/plain;
+      }
+    }
+  startup.sh: |
+    #!/bin/sh
+    set -e
+    
+    # Replace environment variables in the HTML template
+    envsubst < /usr/share/nginx/html/index.html.template > /usr/share/nginx/html/index.html
+    
+    # Start nginx in the foreground
+    exec nginx -g 'daemon off;' 

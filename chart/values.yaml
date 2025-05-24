@@ -1,0 +1,14 @@
+config:
+  envType: "dev"  # Can be changed to "prod"
+
+secret:
+  secretValue: "super-secret-value"
+
+traefik:
+  ingressClass:
+    enabled: true
+  ports:
+    web:
+      nodePort: 30080
+  service:
+    type: NodePort

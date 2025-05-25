@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # Start minikube cluster if not already running
-echo "Starting minikube cluster with podman driver (CPUs=4, Memory=6GB)..."
+echo "Starting minikube cluster with podman driver (CPUs=2, Memory=3GB)..."
 if ! minikube status | grep -q "Running"; then
-    minikube start --driver=podman --force --cpus=4 --memory=6g
+    minikube start --driver=podman --force --cpus=2 --memory=3g
 fi
 
 # Show available namespaces

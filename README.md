@@ -52,4 +52,4 @@ The scripts are setup in an idempotent way, you can run them as many times.
 
 ### Cleanup
 
-Minikube can be cleaned up by just running `./cleanup.sh`
+The app along with Minikube can be cleaned up by just running `./cleanup.sh`
